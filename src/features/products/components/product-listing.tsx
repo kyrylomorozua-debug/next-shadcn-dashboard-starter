@@ -9,24 +9,28 @@ export default async function ProductListingPage() {
   const pageLimit = searchParamsCache.get('perPage') || 10;
   const offset = (page - 1) * pageLimit;
 
-  // Використовуємо змінні оточення, які ми додали в Netlify
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
   
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  // Отримуємо дані безпосередньо з Supabase
   const { data, count, error } = await supabase
     .from('products')
     .select('*', { count: 'exact' })
     .range(offset, offset + pageLimit - 1);
 
   if (error) {
-    console.error('Помилка Supabase:', error.message);
+    console.error('Supabase fetch error:', error.message);
   }
 
-  // Перетворюємо дані під формат таблиці
-  const products: any = data || [];
+  // Обробляємо дані, щоб вони гарантовано підходили для таблиці
+  const products = (data || []).map((item: any) => ({
+    ...item,
+    id: item.id?.toString() || Math.random().toString(), // Таблиця любить рядкові ID
+    price: Number(item.price) || 0,
+    created_at: item.created_at ? new Date(item.created_at).toISOString() : new Date().toISOString()
+  }));
+
   const totalProducts = count || 0;
 
   return (
