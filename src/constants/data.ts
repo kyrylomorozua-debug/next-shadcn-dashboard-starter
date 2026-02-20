@@ -76,37 +76,37 @@ export const recentSalesData: SaleUser[] = [
 export const navItems: NavItem[] = [
   {
     title: 'Аналітика',
-    href: '/dashboard',
+    url: '/dashboard', // ЗАМІНЕНО href НА url
     icon: 'dashboard',
     label: 'dashboard'
   },
   {
     title: 'Клієнти',
-    href: '/dashboard/user',
+    url: '/dashboard/user', // ЗАМІНЕНО href НА url
     icon: 'user',
     label: 'user'
   },
   {
     title: 'Замовлення (Склад)',
-    href: '/dashboard/employee',
+    url: '/dashboard/employee', // ЗАМІНЕНО href НА url
     icon: 'employee',
     label: 'employee'
   },
   {
     title: 'Товари',
-    href: '/dashboard/product',
+    url: '/dashboard/product', // ЗАМІНЕНО href НА url
     icon: 'kanban',
     label: 'product'
   },
   {
     title: 'Профіль',
-    href: '/dashboard/profile',
+    url: '/dashboard/profile', // ЗАМІНЕНО href НА url
     icon: 'profile',
     label: 'profile'
   },
   {
     title: 'Вихід',
-    href: '/',
+    url: '/', // ЗАМІНЕНО href НА url
     icon: 'login',
     label: 'login'
   }
