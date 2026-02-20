@@ -1,78 +1,67 @@
 'use client';
-import { Badge } from '@/components/ui/badge';
-import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
+
+import { ColumnDef } from '@tanstack/react-table';
 import { Product } from '@/constants/data';
-import { Column, ColumnDef } from '@tanstack/react-table';
-import { CheckCircle2, Text, XCircle } from 'lucide-react';
-import Image from 'next/image';
+import { Checkbox } from '@/components/ui/checkbox';
 import { CellAction } from './cell-action';
-import { CATEGORY_OPTIONS } from './options';
 
 export const columns: ColumnDef<Product>[] = [
   {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false
+  },
+  {
     accessorKey: 'photo_url',
-    header: 'IMAGE',
+    header: 'ФОТО',
     cell: ({ row }) => {
+      const url = row.getValue('photo_url') as string;
       return (
-        <div className='relative aspect-square'>
-          <Image
-            src={row.getValue('photo_url')}
+        <div className="relative h-10 w-10">
+          <img
+            src={url || 'https://via.placeholder.com/40'}
             alt={row.getValue('name')}
-            fill
-            className='rounded-lg'
+            className="rounded-md object-cover"
           />
         </div>
       );
     }
   },
   {
-    id: 'name',
     accessorKey: 'name',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ cell }) => <div>{cell.getValue<Product['name']>()}</div>,
-    meta: {
-      label: 'Name',
-      placeholder: 'Search products...',
-      variant: 'text',
-      icon: Text
-    },
-    enableColumnFilter: true
+    header: 'НАЗВА'
   },
   {
-    id: 'category',
     accessorKey: 'category',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Category' />
-    ),
-    cell: ({ cell }) => {
-      const status = cell.getValue<Product['category']>();
-      const Icon = status === 'active' ? CheckCircle2 : XCircle;
-
-      return (
-        <Badge variant='outline' className='capitalize'>
-          <Icon />
-          {status}
-        </Badge>
-      );
-    },
-    enableColumnFilter: true,
-    meta: {
-      label: 'categories',
-      variant: 'multiSelect',
-      options: CATEGORY_OPTIONS
-    }
+    header: 'КАТЕГОРІЯ'
   },
   {
     accessorKey: 'price',
-    header: 'PRICE'
+    header: 'ЦІНА',
+    cell: ({ row }) => {
+      const price = parseFloat(row.getValue('price'));
+      return <div>₴{price ? price.toLocaleString() : 0}</div>;
+    }
   },
   {
     accessorKey: 'description',
-    header: 'DESCRIPTION'
+    header: 'ОПИС',
+    cell: ({ row }) => <div className="line-clamp-1">{row.getValue('description')}</div>
   },
-
   {
     id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />
