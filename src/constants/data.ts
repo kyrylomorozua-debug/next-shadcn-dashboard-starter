@@ -8,7 +8,6 @@ export type User = {
   verified: boolean;
   status: string;
 };
-
 export const users: User[] = [];
 
 export type Product = {
@@ -31,31 +30,46 @@ export interface SaleUser {
   initials: string;
 }
 
-// Це дані для списку останніх продажів на головній
 export const recentSalesData: SaleUser[] = [
   {
     id: 1,
-    name: 'Олександр М.',
-    email: 'olexandr@email.com',
-    amount: '+₴1,999.00',
+    name: 'Олександр К.',
+    email: 'olex.k@email.com',
+    amount: '+₴1,900.00',
     image: '',
-    initials: 'ОМ'
+    initials: 'ОК'
   },
   {
     id: 2,
-    name: 'Тетяна Л.',
-    email: 'tanya.l@email.com',
-    amount: '+₴390.00',
+    name: 'Марія Д.',
+    email: 'mariya@email.com',
+    amount: '+₴3,500.00',
     image: '',
-    initials: 'ТЛ'
+    initials: 'МД'
   },
   {
     id: 3,
-    name: 'Іван Н.',
-    email: 'ivan.n@email.com',
-    amount: '+₴2,900.00',
+    name: 'Ігор П.',
+    email: 'igor.p@email.com',
+    amount: '+₴2,200.00',
     image: '',
-    initials: 'ІН'
+    initials: 'ІП'
+  },
+  {
+    id: 4,
+    name: 'Олена В.',
+    email: 'olena.v@email.com',
+    amount: '+₴1,100.00',
+    image: '',
+    initials: 'ОВ'
+  },
+  {
+    id: 5,
+    name: 'Андрій С.',
+    email: 'andriy.s@email.com',
+    amount: '+₴4,000.00',
+    image: '',
+    initials: 'АС'
   }
 ];
 
@@ -64,30 +78,36 @@ export const navItems: NavItem[] = [
     title: 'Аналітика',
     href: '/dashboard',
     icon: 'dashboard',
-    label: 'Аналітика'
-  },
-  {
-    title: 'Склад (Взуття)',
-    href: '/dashboard/product',
-    icon: 'kanban',
-    label: 'Склад'
+    label: 'dashboard'
   },
   {
     title: 'Клієнти',
     href: '/dashboard/user',
     icon: 'user',
-    label: 'Клієнти'
+    label: 'user'
   },
   {
-    title: 'Замовлення',
+    title: 'Замовлення (Склад)',
     href: '/dashboard/employee',
     icon: 'employee',
-    label: 'Замовлення'
+    label: 'employee'
+  },
+  {
+    title: 'Товари',
+    href: '/dashboard/product',
+    icon: 'kanban',
+    label: 'product'
   },
   {
     title: 'Профіль',
     href: '/dashboard/profile',
     icon: 'profile',
-    label: 'Профіль'
+    label: 'profile'
+  },
+  {
+    title: 'Вихід',
+    href: '/',
+    icon: 'login',
+    label: 'login'
   }
 ];
